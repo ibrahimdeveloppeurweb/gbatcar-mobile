@@ -27,42 +27,51 @@ class _SplashScreenState extends State<SplashScreen> {
       await Future.delayed(const Duration(milliseconds: 1000));
 
       if (!mounted) return;
-      
+
       final authProvider = context.read<AuthProvider>();
       final isAuthenticated = await authProvider.checkAuthStatus();
 
       if (!mounted) return;
 
       if (isAuthenticated) {
-
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const MainLayout()));
-       // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const OnboardingScreen()));
-      } else {
         Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const OnboardingScreen()));
+        // Navigator.of(context).pushReplacement(
+        //     MaterialPageRoute(builder: (_) => const OnboardingScreen()));
+      } else {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (_) => const OnboardingScreen()));
       }
     } catch (e) {
       debugPrint('Error: $e');
       if (!mounted) return;
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const OnboardingScreen()));
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const OnboardingScreen()));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.brandRose1,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'GbatCar',
-              style: TextStyle(
-                fontSize: 40,
-                fontWeight: FontWeight.w900,
-                color: AppColors.primaryNavy,
-                letterSpacing: 2,
-              ),
+            Image.asset(
+              'assets/images/logo1.png',
+              width: 300, // Ajustez la largeur selon vos besoins
+              errorBuilder: (context, error, stackTrace) {
+                // Securité au cas où l'image n'est pas encore enregistrée dans pubspec.yaml
+                return const Text(
+                  'GbatCar',
+                  style: TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.w900,
+                    color: AppColors.surfaceWhite,
+                    letterSpacing: 2,
+                  ),
+                );
+              },
             ),
           ],
         ),

@@ -6,6 +6,8 @@ class AppColors {
   static const Color primaryNavy =  Color(0xFF0A1B42);
   static const Color brandBlue = primaryNavy; // New branding color
   static const Color accentGreen =  Color(0xFFD80010);
+  static const Color brandRose = Color(0xFFF8CBCD);
+  static const Color brandRose1 = Color(0xFFF66E73);
 
   // Backgrounds
   static const Color background = primaryNavy; // ← Modifié de primaryLime à primaryNavy

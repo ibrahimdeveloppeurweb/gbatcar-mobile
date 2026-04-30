@@ -2,6 +2,7 @@ plugins {
     id "com.android.application"
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
+    id "com.google.gms.google-services"  // 🔔 Firebase
 }
 
 android {
@@ -10,6 +11,7 @@ android {
     ndkVersion = "25.1.8937393"  // ✅ Changé
 
     compileOptions {
+        coreLibraryDesugaringEnabled true  // 🔔 Ajouté
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
@@ -20,10 +22,11 @@ android {
 
     defaultConfig {
         applicationId = "com.example.project"
-        minSdkVersion = flutter.minSdkVersion  // ✅ Changé (au lieu de flutter.minSdkVersion)
-        targetSdk = 35  // ✅ Changé
+        minSdkVersion = 21  // 🔔 Requis pour flutter_local_notifications (ou activer desugaring)
+        targetSdk = 35
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        multiDexEnabled true  // 🔔 Ajouté pour Firebase
     }
 
     buildTypes {
@@ -35,4 +38,8 @@ android {
 
 flutter {
     source = "../.."
+}
+
+dependencies {
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'  // 🔔 Ajouté
 }

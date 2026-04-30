@@ -105,7 +105,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       backgroundColor: AppColors.background,
       elevation: 0,
       title: Text(
-        "NEHEMIE K.",
+        "JOEL PESSON",
         style: const TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,

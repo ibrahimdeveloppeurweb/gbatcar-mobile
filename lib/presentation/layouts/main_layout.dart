@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project/presentation/screens/wallet/wallet_screen.dart';
 import 'package:project/presentation/screens/vehicle/vehicle_screen.dart';
 import 'package:project/presentation/screens/profile_screen.dart';
 import 'package:project/presentation/screens/dashboard_screen.dart';
@@ -28,7 +27,6 @@ class _MainLayoutState extends State<MainLayout> {
         index: _currentIndex,
         children: [
           const DashboardScreen(),
-          const WalletScreen(),
           const VehicleScreen(),
           const ProfileScreen(),
         ],

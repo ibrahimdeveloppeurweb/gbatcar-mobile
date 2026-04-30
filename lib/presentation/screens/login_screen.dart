@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../shared/constants/app_colors.dart';
 import 'verification_screen.dart'; // Import VerificationScreen
 
@@ -23,93 +24,118 @@ class _LoginScreenState extends State<LoginScreen> {
   ];
 
   void _showCountryPicker() {
+    String searchQuery = '';
+
     showModalBottomSheet(
       context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
       builder: (context) {
-        return Container(
-          padding: const EdgeInsets.symmetric(vertical: 20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 40,
-                height: 4,
-                margin: const EdgeInsets.only(bottom: 20),
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(2),
-                ),
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setModalState) {
+            final filteredCountries = _countries.where((country) {
+              return country['name']!
+                      .toLowerCase()
+                      .contains(searchQuery.toLowerCase()) ||
+                  country['code']!.contains(searchQuery);
+            }).toList();
+
+            return Container(
+              height: MediaQuery.of(context).size.height * 0.7,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Sélectionnez votre pays",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.primaryNavy,
+              padding: EdgeInsets.only(
+                top: 20,
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
+              child: Column(
+                children: [
+                  Container(
+                    width: 40,
+                    height: 4,
+                    margin: const EdgeInsets.only(bottom: 20),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(2),
                     ),
                   ),
-                ),
-              ),
-              const SizedBox(height: 15),
-              // Search bar placeholder
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: "Rechercher",
-                    prefixIcon: const Icon(Icons.search, color: Colors.grey),
-                    filled: true,
-                    fillColor: const Color(0xFFF7F9FC),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 15),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: _countries.length,
-                  itemBuilder: (context, index) {
-                    final country = _countries[index];
-                    final isSelected = country['code'] == _selectedCountryCode;
-                    return ListTile(
-                      leading: Text(
-                        country['flag']!,
-                        style: const TextStyle(fontSize: 24),
-                      ),
-                      title: Text(
-                        country['name']!,
-                        style: const TextStyle(
-                          fontSize: 16,
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Sélectionnez votre pays",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                           color: AppColors.primaryNavy,
                         ),
                       ),
-                      trailing: isSelected
-                          ? const Icon(Icons.check_circle,
-                              color: AppColors.success)
-                          : null,
-                      onTap: () {
-                        setState(() {
-                          _selectedCountryCode = country['code']!;
-                          _selectedCountryFlag = country['flag']!;
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: TextField(
+                      onChanged: (value) {
+                        setModalState(() {
+                          searchQuery = value;
                         });
-                        Navigator.pop(context);
                       },
-                    );
-                  },
-                ),
+                      decoration: InputDecoration(
+                        hintText: "Rechercher",
+                        prefixIcon:
+                            const Icon(Icons.search, color: Colors.grey),
+                        filled: true,
+                        fillColor: const Color(0xFFF7F9FC),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide.none,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: filteredCountries.length,
+                      itemBuilder: (context, index) {
+                        final country = filteredCountries[index];
+                        final isSelected =
+                            country['code'] == _selectedCountryCode;
+                        return ListTile(
+                          leading: Text(
+                            country['flag']!,
+                            style: const TextStyle(fontSize: 24),
+                          ),
+                          title: Text(
+                            country['name']!,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: AppColors.primaryNavy,
+                            ),
+                          ),
+                          trailing: isSelected
+                              ? const Icon(Icons.check_circle,
+                                  color: AppColors.success)
+                              : null,
+                          onTap: () {
+                            setState(() {
+                              _selectedCountryCode = country['code']!;
+                              _selectedCountryFlag = country['flag']!;
+                            });
+                            Navigator.pop(context);
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            );
+          },
         );
       },
     );
@@ -130,7 +156,12 @@ class _LoginScreenState extends State<LoginScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.language, color: AppColors.primaryNavy),
-            onPressed: () {},
+            onPressed: () async {
+              final Uri url = Uri.parse('https://gbatcar.com/');
+              if (!await launchUrl(url)) {
+                debugPrint('Could not launch \$url');
+              }
+            },
           ),
         ],
       ),

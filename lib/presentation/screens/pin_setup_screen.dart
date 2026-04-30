@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/presentation/screens/onboarding_steps_screen.dart';
 import '../../shared/constants/app_colors.dart';
 import 'pin_confirmation_screen.dart';
 
@@ -37,7 +38,7 @@ class _PinSetupScreenState extends State<PinSetupScreen> {
       Future.delayed(const Duration(milliseconds: 300), () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => PinConfirmationScreen(correctPin: value)),
+          MaterialPageRoute(builder: (context) => const OnboardingStepsScreen()),
         );
       });
     }

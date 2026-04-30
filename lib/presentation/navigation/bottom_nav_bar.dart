@@ -18,21 +18,20 @@ class BottomNavBar extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 15),
       decoration: const BoxDecoration(
         color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 10,
-            offset: Offset(0, -5),
-          ),
-        ],
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: Colors.black12,
+        //     blurRadius: 10,
+        //     offset: Offset(0, -5),
+        //   ),
+        // ],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           _navItem(Icons.home, "Accueil", 0),
-          _navItem(Icons.account_balance_wallet, "Portefeuille", 1),
-          _navItem(Icons.directions_car, "Véhicule", 2),
-          _navItem(Icons.person, "Profil", 3),
+          _navItem(Icons.directions_car, "Véhicule", 1),
+          _navItem(Icons.person, "Profil", 2),
         ],
       ),
     );

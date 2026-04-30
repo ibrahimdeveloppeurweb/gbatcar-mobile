@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import '../../shared/constants/app_colors.dart';
 
 class QuestionnaireScreen extends StatefulWidget {
-  const QuestionnaireScreen({super.key});
+  final String clientType;
+  const QuestionnaireScreen({super.key, required this.clientType});
 
   @override
   State<QuestionnaireScreen> createState() => _QuestionnaireScreenState();
 }
 
 class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
-  int _currentStep = 1; // 1 to 12
-  final int _totalSteps = 12;
+  int _currentStep = 1; 
+  final int _totalSteps = 12; // Ajusté pour retirer le téléchargement de documents
 
-  // -- States for the specific steps we have designs for --
+  // -- States --
   String? _maritalStatus;
   int _childrenCount = 0;
   String? _educationLevel;
@@ -27,11 +28,12 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
   bool? _hasPreviousCredit;
   String? _fundingSource;
 
+
+
   void _nextStep() {
     if (_currentStep < _totalSteps) {
       setState(() => _currentStep++);
     } else {
-      // Done with questionnaire
       Navigator.pop(context);
     }
   }
@@ -40,43 +42,18 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
     if (_currentStep > 1) {
       setState(() => _currentStep--);
     } else {
-      Navigator.pop(context); // Go back to onboarding steps screen
+      Navigator.pop(context);
     }
   }
 
   bool _canContinue() {
-    if (_currentStep == 1) {
-      return _maritalStatus != null;
-    }
-    // For now, only Step 3 has a validation requirement based on the captures
-    if (_currentStep == 3) {
-      return _educationLevel != null;
-    }
-    if (_currentStep == 4) {
-      return _discoverySource != null;
-    }
-    if (_currentStep == 5) {
-      return _profession != null;
-    }
-    if (_currentStep == 6) {
-      return _incomeBracket != null;
-    }
-    if (_currentStep == 7) {
-      return _hasFriendsInCompany != null;
-    }
-    if (_currentStep == 8) {
-      return _mainBank != null;
-    }
-    if (_currentStep == 10) {
-      return _housingStatus != null;
-    }
-    if (_currentStep == 11) {
-      return _hasPreviousCredit != null;
-    }
-    if (_currentStep == 12) {
-      return _fundingSource != null;
-    }
-    // Other steps might not need validation, or we don't know yet
+    if (_currentStep == 1) return _maritalStatus != null;
+    if (_currentStep == 3) return _educationLevel != null;
+    if (_currentStep == 4) return _discoverySource != null;
+    if (_currentStep == 5) return _profession != null;
+    if (_currentStep == 6) return _incomeBracket != null;
+    if (_currentStep == 7) return _hasFriendsInCompany != null;
+    if (_currentStep == 8) return _mainBank != null;
     return true; 
   }
 
@@ -141,86 +118,108 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
 
   Widget _buildCurrentStepContent() {
     switch (_currentStep) {
-      case 1:
-        return _buildMaritalStatusStep();
-      case 2:
-        return _buildChildrenCounterStep();
-      case 3:
-        return _buildEducationDropdownStep();
-      case 4:
-        return _buildDiscoverySourceStep();
-      case 5:
-        return _buildGenericDropdownStep(
+      case 1: return _buildMaritalStatusStep();
+      case 2: return _buildChildrenCounterStep();
+      case 3: return _buildEducationDropdownStep();
+      case 4: return _buildDiscoverySourceStep();
+      case 5: return _buildGenericDropdownStep(
           title: "Quelle est votre profession\nprincipale actuelle ?",
           currentValue: _profession,
           options: ["Salarié(e) privé(e)", "Fonctionnaire", "Indépendant(e) / Commerçant(e)", "Chauffeur VTC", "Autre"],
           onSelected: (val) => setState(() => _profession = val),
         );
-      case 6:
-        return _buildGenericDropdownStep(
+      case 6: return _buildGenericDropdownStep(
           title: "Quelle est votre tranche de\nrevenus mensuels ?",
           currentValue: _incomeBracket,
           options: ["Moins de 200 000 FCFA", "Entre 200 000 et 500 000 FCFA", "Plus de 500 000 FCFA"],
           onSelected: (val) => setState(() => _incomeBracket = val),
         );
-      case 7:
-        return _buildFriendsInCompanyStep();
-      case 8:
-        return _buildGenericDropdownStep(
+      case 7: return _buildFriendsInCompanyStep();
+      case 8: return _buildGenericDropdownStep(
           title: "Quel compte bancaire utilisez-vous\nle plus régulièrement ?",
           currentValue: _mainBank,
           options: ["Ecobank", "SGCI", "NSIA", "Orange Money", "Wave", "Autre / Non bancarisé"],
           onSelected: (val) => setState(() => _mainBank = val),
         );
-      case 9:
-        return _buildExperienceCounterStep();
-      case 10:
-        return _buildRadioGroupStep(
+      case 9: return _buildExperienceCounterStep();
+      case 10: return _buildRadioGroupStep(
           title: "Êtes-vous locataire ou\npropriétaire de votre logement\nactuel ?",
           currentValue: _housingStatus,
           options: ["Locataire", "Propriétaire", "Hébergé(e)"],
           onChanged: (val) => setState(() => _housingStatus = val),
         );
-      case 11:
-        return _buildRadioGroupStep(
+      case 11: return _buildRadioGroupStep(
           title: "Avez-vous déjà souscrit à une\nlocation-vente ou un crédit\nautomobile par le passé ?",
           currentValue: _hasPreviousCredit == null ? null : (_hasPreviousCredit! ? "Oui" : "Non"),
           options: ["Oui", "Non"],
           onChanged: (val) => setState(() => _hasPreviousCredit = (val == "Oui")),
         );
-      case 12:
-        return _buildGenericDropdownStep(
+      case 12: return _buildGenericDropdownStep(
           title: "D'où proviendra la source principale\nde remboursement du véhicule ?",
           currentValue: _fundingSource,
           options: ["Mon salaire fixe", "Les recettes VTC du véhicule", "Les revenus de mon entreprise", "Autre"],
           onSelected: (val) => setState(() => _fundingSource = val),
         );
-      default:
-        // Generic placeholder for steps we don't have mockups for yet
-        return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(height: 40),
-              Icon(Icons.help_outline, size: 60, color: Colors.grey[300]),
-              const SizedBox(height: 16),
-              Text(
-                "Contenu de l'étape $_currentStep",
-                style: const TextStyle(
-                  fontSize: 20, 
-                  color: AppColors.primaryNavy,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 8),
-              const Text(
-                "Mettre à jour avec le design spécifique.",
-                style: TextStyle(color: Colors.grey),
-              )
-            ],
-          ),
-        );
+      default: return const SizedBox();
     }
+  }
+
+  // Document upload step has been moved to AddressIdentityScreen.
+
+  Widget _buildStepDropdown({required String label, String? value, required List<String> options, required Function(String?) onChanged, String? hint}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.primaryNavy)),
+        const SizedBox(height: 8),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          decoration: BoxDecoration(
+            color: const Color(0xFFF8FAFC),
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: const Color(0xFFE2E8F0)),
+          ),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              isExpanded: true,
+              value: value,
+              hint: Text(hint ?? "Sélectionner", style: const TextStyle(fontSize: 14, color: Color(0xFF94A3B8))),
+              items: options.map((e) => DropdownMenuItem(value: e, child: Text(e, style: const TextStyle(fontSize: 14)))).toList(),
+              onChanged: onChanged,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildStepInputField({required String label, required TextEditingController controller, required String hintText, TextInputType? keyboardType}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.primaryNavy)),
+        const SizedBox(height: 8),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          decoration: BoxDecoration(
+            color: const Color(0xFFF8FAFC),
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: const Color(0xFFE2E8F0)),
+          ),
+          child: TextField(
+            controller: controller,
+            keyboardType: keyboardType,
+            style: const TextStyle(fontSize: 14, color: AppColors.primaryNavy),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: hintText,
+              hintStyle: const TextStyle(color: Color(0xFF94A3B8), fontSize: 14),
+              contentPadding: const EdgeInsets.symmetric(vertical: 14),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 
   Widget _buildMaritalStatusStep() {

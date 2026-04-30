@@ -74,16 +74,16 @@ class FaqScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Column(
                 children: [
-                  _buildFaqItem("1. Qu'est-ce que GbatCar et à qui s'adresse la solution ?", "GbatCar est une plateforme innovante permettant aux chauffeurs de devenir propriétaires de leur véhicule via un modèle de location avec option d'achat (Lease-to-Own). Elle s'adresse aux professionnels du transport souhaitant acquérir un véhicule sans les contraintes d'un crédit classique."),
-                  _buildFaqItem("2. Quelles sont les conditions pour rejoindre GbatCar ?", "Pour rejoindre GbatCar, vous devez posséder un permis de conduire valide, avoir une expérience avérée en tant que chauffeur professionnel, fournir un justificatif de domicile et réussir notre évaluation de conduite et notre formation."),
-                  _buildFaqItem("3. Dois-je fournir un apport initial important ?", "L'apport initial dépend du type de véhicule choisi. Toutefois, GbatCar s'efforce de proposer des apports abordables et nettement inférieurs à l'achat comptant ou au crédit bancaire standard."),
-                  _buildFaqItem("4. Comment fonctionne le contrat GbatCar ?", "Le contrat GbatCar est basé sur des versements réguliers (hebdomadaires ou journaliers) incluant le coût du véhicule, l'assurance, l'entretien et la gestion administrative. À la fin de la période convenue, la propriété du véhicule vous est transférée."),
-                  _buildFaqItem("5. Quelle est la durée du contrat ?", "La durée de nos contrats varie généralement entre 24 et 48 mois, en fonction du type de véhicule et des options de paiement sélectionnées."),
-                  _buildFaqItem("6. Que comprennent les paiements ?", "Vos paiements fixes couvrent non seulement le remboursement de votre véhicule, mais également l'assurance tous risques, un forfait d'entretien préventif régulier et l'équipement nécessaire à l'activité (géolocalisation, etc.)."),
-                  _buildFaqItem("7. Puis-je suivre mes paiements et mon activité en temps réel ?", "Absolument. Votre application GbatCar vous permet de suivre vos revenus, l'historique de vos paiements, l'état de votre contrat, ainsi que les prochaines échéances d'entretien pour votre véhicule."),
-                  _buildFaqItem("8. Que se passe-t-il à la fin du contrat ?", "Une fois tous les versements prévus par votre contrat effectués, GbatCar vous transfère officiellement la carte grise à votre nom. Le véhicule vous appartient définitivement."),
-                  _buildFaqItem("9. Ai-je des options après être devenu propriétaire ?", "Oui, une fois propriétaire, vous pouvez continuer à bénéficier des avantages de notre écosystème (courses, assurance flotte) ou choisir de revendre votre véhicule pour recommencer un nouveau contrat GbatCar avec un modèle plus récent."),
-                  _buildFaqItem("10. Pourquoi choisir GbatCar plutôt qu'une location classique ou un crédit auto ?", "GbatCar vous garantit de devenir propriétaire à terme (contrairement à la location classique) sans exiger les garanties lourdes des banques. Tout est réuni dans une seule mensualité fixe (assurance, entretien), ce qui vous apporte sérénité et pérennité dans votre activité."),
+                  _buildFaqItem("1. Qu'est-ce que GbatCar et à qui s'adresse la solution ?", "GbatCar est une entreprise spécialisée dans le leasing automobile. Nous proposons des solutions de Location Longue Durée (LLD), Location Courte Durée (LCD), Location avec Option d'Achat (LOA) et des partenariats. Nos offres s'adressent aussi bien aux particuliers qu'aux entreprises souhaitant une gestion simplifiée de leur mobilité."),
+                  _buildFaqItem("2. Quelles sont les solutions de leasing proposées par GbatCar ?", "Nous proposons plusieurs formules flexibles : la Location Longue Durée (LLD) pour rouler sans se soucier de l'entretien, la Location Courte Durée (LCD) pour des besoins ponctuels, et la Location avec Option d'Achat (LOA) pour devenir propriétaire du véhicule à la fin du contrat."),
+                  _buildFaqItem("3. Quelles sont les conditions pour souscrire à un contrat de leasing ?", "Pour les particuliers, il faut fournir une pièce d'identité, un permis de conduire, un justificatif de domicile et un justificatif de revenus. Pour les entreprises, nous demandons le Registre de Commerce, la DFE, les statuts et des relevés bancaires récents."),
+                  _buildFaqItem("4. Que comprennent les paiements mensuels ?", "Selon la formule choisie, vos paiements peuvent inclure le coût de location du véhicule, l'assurance tous risques, l'entretien préventif régulier et l'assistance. Vous profitez ainsi d'un véhicule clé en main avec un budget maîtrisé."),
+                  _buildFaqItem("5. Dois-je fournir un apport initial ?", "L'apport initial dépend du type de contrat (LOA, LLD) et du véhicule choisi. Nous proposons des conditions flexibles et adaptées à votre profil financier pour faciliter l'accès à votre véhicule."),
+                  _buildFaqItem("6. Quelle est la durée d'un contrat de leasing ?", "La durée varie en fonction de vos besoins et de la formule choisie (LCD, LLD ou LOA). Les contrats peuvent aller de quelques jours pour la courte durée, jusqu'à 24, 36 ou 48 mois pour la longue durée et l'option d'achat."),
+                  _buildFaqItem("7. Puis-je suivre l'état de mon contrat en ligne ?", "Absolument. L'application GbatCar vous permet de suivre l'historique de vos paiements, l'état de votre contrat, de télécharger vos reçus et de consulter les prochaines échéances d'entretien de votre véhicule."),
+                  _buildFaqItem("8. Que se passe-t-il à la fin d'un contrat LOA (Location avec Option d'Achat) ?", "À la fin de votre contrat LOA, si vous avez effectué tous les versements prévus, GbatCar vous transfère officiellement la propriété du véhicule et la carte grise est mise à votre nom."),
+                  _buildFaqItem("9. Que se passe-t-il à la fin d'un contrat LLD (Location Longue Durée) ?", "À l'échéance d'un contrat LLD, vous restituez simplement le véhicule à GbatCar. Vous avez alors la possibilité de souscrire à un nouveau contrat pour repartir avec un véhicule récent."),
+                  _buildFaqItem("10. Pourquoi choisir GbatCar pour mon leasing automobile ?", "GbatCar offre une flexibilité totale adaptée aux particuliers comme aux entreprises. Avec un accompagnement personnalisé, des démarches simplifiées et des mensualités tout compris, vous maîtrisez votre budget auto sans les contraintes liées à l'achat et à l'entretien."),
                 ],
               ),
             ),
@@ -113,7 +113,7 @@ class FaqScreen extends StatelessWidget {
                   const SizedBox(height: 20),
                   
                   const Text(
-                    "GBATCAR HOLDING LTD\n29 Staveley, W4 3HU, London, UK",
+                    "GBATGROUP \nCocody chateau, Abidjann, Côte d'ivoire",
                     style: TextStyle(
                       fontSize: 14,
                       color: AppColors.primaryNavy,
@@ -133,7 +133,7 @@ class FaqScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   const Text(
-                    "GBATCAR CIV Siège\nAbatta, cité BCEAO - Abidjan,\nCôte d'ivoire\n+225 07 00 11 00 40\ninfos@gbatcar.com",
+                    "GBATCAR  Siège\nCocody chateau star 16,Abidjan,\nCôte d'ivoire\n+225 070 245 0202\ncontact@gbatcar.com",
                     style: TextStyle(
                       fontSize: 14,
                       color: AppColors.primaryNavy,
